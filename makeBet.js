@@ -1,16 +1,30 @@
 const { sendPostRequest } = require('./utils');
+const { v4: uuidv4 } = require('uuid');  // For generating UUIDs
+require('dotenv').config();
+
+const sessionId = process.env.SESSION_ID;
+
+function generateId() {
+    return Date.now().toString() + Math.floor(Math.random() * 1000000).toString();
+}
 
 async function makeBet() {
+  const transactionId = generateId();
+  const betslipId = generateId();
+
+  console.log('Transaction ID:', transactionId);
+    console.log('Betslip ID:', betslipId);
+
   const payload = {
     amount: 500,
     currency: 'TRY',
     transaction: {
-      id: '1718916465915',
-      timestamp: 1718916465.782417558,
+      id: transactionId,
+      timestamp: Date.now() / 1000,
       amount: 500,
       currency: 'TRY',
       operation: 'bet',
-      betslip_id: '23f399992d404e26adc39ed9a6353609',
+      betslip_id: betslipId,
       player_id: '2376504177640738822',
       operator_id: '2223097160642207744',
       operator_brand_id: '2223097831193976832',
@@ -18,14 +32,14 @@ async function makeBet() {
       cross_rate_euro: '1'
     },
     betslip: {
-      id: '23f399992d404e26adc39ed9a6353609',
-      timestamp: 1718916465.782399517,
+      id: betslipId,
+      timestamp: Date.now() / 1000,
       currency: 'TRY',
       sum: 500,
       type: '1/1',
       bets: [
         {
-          id: '8db3d45b535c45559b026483d98f0f45',
+          id: generateId(),
           scheduled: 1752882000,
           odds: '1.5',
           live: false,
@@ -50,14 +64,14 @@ async function makeBet() {
       operator_brand_id: '2223097831193976832'
     },
     player_id: '104048',
-    session_id: '2045f5b5-47ba-47c3-86a6-ec76e00272c8',
+    session_id: sessionId,
     potential_win: 15,
     potential_comboboost_win: 0
   };
 
-  const endpoint = '/4/18/bet/make';
+  const endpoint = '/bet/make';
   const response = await sendPostRequest(endpoint, payload);
-  return response.betId;  // Assuming the response contains a `betId`
+  return response;  // Assuming the response contains a `betId`
 }
 
 module.exports = { makeBet };
