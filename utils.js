@@ -20,15 +20,7 @@ async function sendPostRequest(endpoint, payload) {
       }
     });
 
-    // Log request details
-    console.log('Request URL:', url);
-    console.log('Request Headers:', response.config.headers);
-    console.log('Request Body:', requestBody);
-
-    // Log response details
-    console.log('Response Code:', response.status);
-    console.log('Response Status:', response.statusText);
-    console.log('Response Body:', response.data);
+    console.log(`[${response.config.url}]: Response Body:`, response.data);
 
     return response.data;
   } catch (error) {
