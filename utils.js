@@ -44,7 +44,7 @@ async function sendPostRequest(endpoint, payload) {
 
       console.error('Error sending POST request:', error.response.data);
     } else {
-      console.error('Error sending POST request:', error.message);
+      console.error('Error sending POST request:', error);
     }
     // Optionally throw the error if needed
     // throw error;
