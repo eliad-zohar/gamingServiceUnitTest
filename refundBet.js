@@ -5,19 +5,20 @@ function generateId() {
     return Date.now().toString() + Math.floor(Math.random() * 1000000).toString();
 }
 
-async function rollbackBet(amount, betTransactionId, parentTransactionId, betslipId) {
+async function refundBet(betTransactionId, parentTransactionId, betslipId) {
     const transactionId = generateId();
 
     console.log('Transaction ID:', transactionId);
 
     const payload = {
         payload: {
+            reason: "Manual bet cancel",
             transaction: {
                 id: transactionId,
                 timestamp: Date.now() / 1000,
-                amount: amount*100,
+                amount: 10,
                 currency: 'TRY',
-                operation: 'rollback',
+                operation: 'refund',
                 betslip_id: betslipId,
                 player_id: '2376504177640738822',
                 operator_id: '2223097160642207744',
@@ -26,16 +27,13 @@ async function rollbackBet(amount, betTransactionId, parentTransactionId, betsli
                 cross_rate_euro: '1',
                 parent_transaction_id: parentTransactionId
             },
-            bet_transaction_id: betTransactionId,
-            parent_transaction_id: parentTransactionId
+            bet_transaction_id: betTransactionId
         }
     };
 
-    const endpoint = '/bet/rollback';
+    const endpoint = '/bet/refund';
     const response = await sendPostRequest(endpoint, payload);
-    response.transactionId = transactionId;
-
     return response;
 }
 
-module.exports = { rollbackBet };
+module.exports = { refundBet };
