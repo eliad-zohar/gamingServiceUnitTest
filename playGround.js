@@ -7,21 +7,21 @@ async function runBetTestFlow() {
   try {
     // Start balance - 10
 
-    const bet = await makeBet(5);
+    const bet = await makeBet(1);
 
     const commit = await commitBet(bet.id);
 
-    const win = await winBet(10, bet.id, bet.transactionId, bet.betslipId);
+    const win = await winBet(2, bet.id, bet.transactionId, bet.betslipId);
 
-    const bet2 = await makeBet(7.5);
+    // const bet2 = await makeBet(7.5);
 
-    const commit2 = await commitBet(bet2.id);
+    // const commit2 = await commitBet(bet2.id);
 
-    const rollback = await rollbackBet(10, bet.id, win.id, bet.betslipId);
+    const rollback = await rollbackBet(2, bet.id, win.id, bet.betslipId);
 
-    const win2 = await winBet(10, bet.id, bet.transactionId, bet.betslipId);
+    //const win2 = await winBet(10, bet.id, bet.transactionId, bet.betslipId);
 
-    const rollback2 = await rollbackBet(20, bet.id, win2.id, bet.betslipId);
+    const rollback2 = await rollbackBet(2, bet.id, win2.id, bet.betslipId);
   
 
   } catch (error) {
