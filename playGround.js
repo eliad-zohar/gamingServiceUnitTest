@@ -21,7 +21,7 @@ async function runBetTestFlow() {
 
     //const win2 = await winBet(10, bet.id, bet.transactionId, bet.betslipId);
 
-    const rollback2 = await rollbackBet(2, bet.id, win2.id, bet.betslipId);
+    const rollback2 = await rollbackBet(2, bet.id, win.id, bet.betslipId);
   
 
   } catch (error) {
