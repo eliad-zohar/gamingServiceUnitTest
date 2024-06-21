@@ -5,7 +5,7 @@ function generateId() {
     return Date.now().toString() + Math.floor(Math.random() * 1000000).toString();
 }
 
-async function refundBet(betTransactionId, parentTransactionId, betslipId) {
+async function refundBet(amount, betTransactionId, parentTransactionId, betslipId) {
     const transactionId = generateId();
 
     console.log('Transaction ID:', transactionId);
