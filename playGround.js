@@ -5,23 +5,23 @@ const { winBet } = require('./winBet');
 
 async function runBetTestFlow() {
   try {
-    // Start balance - 10
+    // Start balance - 1000
 
-    const bet = await makeBet(1);
+    const bet = await makeBet(0.1); // 10 | balance - 990
 
     const commit = await commitBet(bet.id);
 
-    const win = await winBet(2, bet.id, bet.transactionId, bet.betslipId);
+    const win = await winBet(0.2, bet.id, bet.transactionId, bet.betslipId); // 20 | balance - 1010
 
     // const bet2 = await makeBet(7.5);
 
     // const commit2 = await commitBet(bet2.id);
 
-    const rollback = await rollbackBet(2, bet.id, win.id, bet.betslipId);
+    const rollback = await rollbackBet(0.2, bet.id, win.id, bet.betslipId); // 10 | balance - 990
 
-    //const win2 = await winBet(10, bet.id, bet.transactionId, bet.betslipId);
+    const win2 = await winBet(0.2, bet.id, bet.transactionId, bet.betslipId); // 20 | balance - 1010
 
-    const rollback2 = await rollbackBet(2, bet.id, win.id, bet.betslipId);
+    const rollback2 = await rollbackBet(0.2, bet.id, win2.id, bet.betslipId); // 10 | balance - 990
   
 
   } catch (error) {
