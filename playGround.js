@@ -6,7 +6,7 @@ const { refundBet } = require('./refundBet');
 
 async function runBetTestFlow() {
   try {
-    // Start balance - 1000
+    // Start balance - 10
 
     const bet = await makeBet(0.1); // 10 
 
@@ -20,11 +20,7 @@ async function runBetTestFlow() {
 
     const rollback = await rollbackBet(0.2, bet.id, win.id, bet.betslipId); // 20
 
-    const win2 = await winBet(0.2, bet.id, bet.transactionId, bet.betslipId); // 20
-
-    const rollback2 = await rollbackBet(0.2, bet.id, win2.id, bet.betslipId); // 10 
-
-    const refund = await refundBet(bet.id, rollback2.transactionId, bet.betslipId); // 10
+    const refund = await refundBet(0.1, bet.id, rollback.transactionId, bet.betslipId); // 10
   
 
   } catch (error) {

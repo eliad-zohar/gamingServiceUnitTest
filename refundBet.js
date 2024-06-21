@@ -16,7 +16,7 @@ async function refundBet(betTransactionId, parentTransactionId, betslipId) {
             transaction: {
                 id: transactionId,
                 timestamp: Date.now() / 1000,
-                amount: 10,
+                amount: amount*100,
                 currency: 'TRY',
                 operation: 'refund',
                 betslip_id: betslipId,
