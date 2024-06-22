@@ -14,18 +14,13 @@ async function runBetTestFlow() {
 
     const win = await winBet(0.2, bet.id, bet.transactionId, bet.betslipId); // 20 
 
-    // const bet2 = await makeBet(7.5);
-
-    // const commit2 = await commitBet(bet2.id);
-
     const rollback = await rollbackBet(0.2, bet.id, win.id, bet.betslipId); // 20
 
-    const win2 = await winBet(0.2, bet.id, bet.transactionId, bet.betslipId); // 20
+    const refund = await refundBet(0.2, bet.id, rollback.transactionId);
 
-    const rollback2 = await rollbackBet(0.2, bet.id, win2.id, bet.betslipId); // 20
-
-    const refund = await refundBet(0.1, bet.id, rollback.transactionId, bet.betslipId); // 10
+    const rollback2 = await rollbackBet(0.2, bet.id, refund.id, bet.betslipId); // 20
   
+    const refund2 = await refundBet(0.2, bet.id, rollback2.transactionId);
 
   } catch (error) {
     console.error('Error in Bet Test Flow:', error);
